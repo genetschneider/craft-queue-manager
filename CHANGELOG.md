@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.1 - 2019-05-07
+
+### Added
+- Support for job data being a resource stream type
+
 ## 1.1.0 - 2018-12-10
 
 ### Added

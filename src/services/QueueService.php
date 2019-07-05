@@ -37,9 +37,23 @@ class QueueService extends Component
         $info = [];
 
         foreach ($results as $result) {
+            $jobData = null;
+
+            try {
+                $jobData = unserialize($result['job']);
+            } catch (\Exception $e) {
+                $job = $result['job'];
+
+                if (!('resource' === gettype($job) && 'stream' === get_resource_type($job))) {
+                    throw $e;
+                }
+
+                $jobData = stream_get_contents($job);
+            }
+
             $info[] = [
                 'id'          => $result['id'],
-                'data'        => unserialize($result['job']),
+                'data'        => $jobData,
                 'description' => $result['description'],
                 'timePushed'  => $result['timePushed'],
                 'timeUpdated' => $result['timeUpdated'],
